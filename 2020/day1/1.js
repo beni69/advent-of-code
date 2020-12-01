@@ -1,14 +1,12 @@
 const fs = require('fs');
-const array = fs.readFileSync('./input').toString().split('\r\n');
+const array = fs.readFileSync('./in1.txt').toString().split('\r\n').map(x => parseInt(x));
 
-console.log(array);
-console.log(array.length);
-
-setTimeout(async function(){
-
+function GetOutput() {
     for (var i = 0; i < array.length; i++) {
-        for (var i2 = 0; i2 < array.length; i2++) {
-            if (array[i] + array[i2] == 2020) console.log('megvan');
+        for (var j = 0; j < array.length; j++) {
+            if (array[i] + array[j] === 2020) return array[i] * array[j];
         }
     }
-}, 500)
+}
+
+console.log(GetOutput());
