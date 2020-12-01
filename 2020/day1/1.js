@@ -10,9 +10,6 @@ function P1() {
     }
 }
 
-console.log(P1());
-fs.writeFileSync('output.txt', `Part one: ${P1()}`);
-
 // part two
 function P2() {
     const input = fs.readFileSync('./in.txt').toString().split('\r\n').map(x => parseInt(x)).filter(x => !isNaN(x));
@@ -26,5 +23,7 @@ function P2() {
     }
 }
 
+console.log(P1());
 console.log(P2());
+fs.writeFileSync('output.txt', `Part one: ${P1()}`);
 fs.appendFileSync('output.txt', `\nPart two: ${P2()}`);
