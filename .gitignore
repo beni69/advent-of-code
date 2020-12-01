@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+# Person specific files
+in*.txt
+output.txt
+
 #custom
 .jshintsrc
-output.txt
