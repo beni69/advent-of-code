@@ -1,5 +1,5 @@
 const fs = require('fs');
-const array = fs.readFileSync('./1').toString().split('\r\n');
+const array = fs.readFileSync('./input').toString().split('\r\n');
 
 console.log(array);
 console.log(array.length);
