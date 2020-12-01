@@ -1,11 +1,13 @@
 const fs = require('fs');
 const input = fs.readFileSync('./in.txt').toString().split('\r\n').map(x => parseInt(x)).filter(x => !isNaN(x));
 
-// console.log(input);
-let output = 0;
+// part one
+function P1() {
+    let output = 0;
+    input.forEach((item, i) => {
+        output += Math.floor(item / 3) - 2;
+    });
+    return output;
+}
 
-input.forEach((item, i) => {
-    output+= Math.floor(item / 3) - 2;
-});
-
-console.log(output);
+console.log(P1());
