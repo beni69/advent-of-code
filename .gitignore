@@ -104,8 +104,7 @@ dist
 .tern-port
 
 # Person specific files
-in*.txt
-output.txt
+*out*.txt
 
 #custom
 .jshintsrc
