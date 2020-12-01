@@ -105,3 +105,4 @@ dist
 
 #custom
 .jshintsrc
+output.txt
