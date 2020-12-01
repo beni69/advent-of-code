@@ -11,7 +11,7 @@ function P1() {
 }
 
 console.log(P1());
-fs.writeFileSync('output.txt', `Part one: ${P1()}`)
+fs.writeFileSync('output.txt', `Part one: ${P1()}`);
 
 // part two
 function P2() {
