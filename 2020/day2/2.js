@@ -1,8 +1,7 @@
 const fs = require('fs');
-// const input = fs.readFileSync('./in.txt').toString().split('\r\n').map(x => parseInt(x)).filter(x => !isNaN(x));
 const arrayIn = fs.readFileSync('./in.txt').toString().trim().split('\r\n');
 
-// console.log(arrayIn);
+
 let arrayOut = [];
 arrayIn.forEach((item, i) => {
     arrayOut.push({
@@ -35,10 +34,9 @@ function P2() {
     });
 
 
-return correct;
+    return correct;
 }
 
-// console.log(P1());
 fs.writeFileSync('output.txt', `Part one: ${P1()}`);
 fs.appendFileSync('output.txt', `\nPart two: ${P2()}`);
 
