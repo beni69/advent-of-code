@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/beni69/advent-of-code/issues"
   },
-  "homepage": "https://github.com/beni69/advent-of-code#readme"
+  "homepage": "https://github.com/beni69/advent-of-code#readme",
+  "dependencies": {}
 }
