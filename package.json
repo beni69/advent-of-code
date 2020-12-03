@@ -16,5 +16,7 @@
     "url": "https://github.com/beni69/advent-of-code/issues"
   },
   "homepage": "https://github.com/beni69/advent-of-code#readme",
-  "dependencies": {}
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }
