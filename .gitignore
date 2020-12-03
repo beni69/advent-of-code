@@ -107,3 +107,4 @@ dist
 .jshintsrc
 *out*.txt
 config.json
+tests/*.txt
