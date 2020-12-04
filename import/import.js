@@ -15,16 +15,6 @@ if (!process.argv[2]) {
     console.warn(usage);
     return;
 }
-// else {
-//     yearDay = process.argv[2].split('/');
-//     if (yearDay.length == 1) {
-//         day = yearDay[0];
-
-//     } else if (yearDay.length == 2) {
-//         year = yearDay[0];
-//         day = yearDay[1];
-//     }
-// }
 
 let pathArr;
 let pathStr;
