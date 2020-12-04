@@ -48,16 +48,19 @@ if (process.argv[3]) {
     console.warn('No directory specified. File will be created in root');
 }
 
-
+// defining cookie
 const opts = {
     headers: {
         cookie: `session=${config.key}`
     }
 };
+
+// getting the actual website
 fetch(`https://adventofcode.com/${year}/day/${day}/input`, opts)
     .then(res => res.text())
     .then((content) => {
 
+        // writing it to file
         try {
             writeFileSyncRecursive(pathStr || `input-${day}.txt`, content.trim(), 'utf-8');
         } catch (e) {
