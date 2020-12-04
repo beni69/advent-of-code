@@ -10,6 +10,7 @@ try {
     return;
 }
 
+// Defining year/day
 const usage = `Usage: node ${path.basename(__filename)} <day|year/day> [path and name]`;
 let year;
 let day;
@@ -17,22 +18,25 @@ if (!process.argv[2]) {
     console.error('No day number provided');
     console.warn(usage);
     return;
-} else if (isNaN(parseInt(process.argv[2])) || process.argv[2].length > 2) {
-    console.error('Invalid day provided. Only enter the day number ex. \'5\'');
-    console.warn(usage);
-    return;
 } else {
     yearDay = process.argv[2].split('/');
+    currentYear = new Date().getFullYear();
     if (yearDay.length == 1) {
+        year = currentYear;
         day = yearDay[0];
 
     } else if (yearDay.length == 2) {
         year = yearDay[0];
         day = yearDay[1];
+    } if (year < 2015 || year > currentYear || day < 1 || day > 25) {
+        console.error('Invalid day or year provided. Only enter the numbers ex. 12 or 2018/12');
+        return;
     }
 }
+console.log(year);
+console.log(day);
 
-let pathArr;
+// Defining path
 let pathStr;
 if (process.argv[3]) {
     pathStr = process.argv[3];
@@ -50,7 +54,7 @@ const opts = {
         cookie: `session=${config.key}`
     }
 };
-fetch(`https://adventofcode.com/${year}/day/${day}/input` || `https://adventofcode.com/2020/day/${day}/input`, opts)
+fetch(`https://adventofcode.com/${year}/day/${day}/input`, opts)
     .then(res => res.text())
     .then((content) => {
 
