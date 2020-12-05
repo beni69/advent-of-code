@@ -109,3 +109,5 @@ dist
 config.json
 tests/*
 import/*.txt
+in*.txt
+.vscode
