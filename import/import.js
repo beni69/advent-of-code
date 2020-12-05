@@ -33,8 +33,7 @@ if (!process.argv[2]) {
         return;
     }
 }
-console.log(year);
-console.log(day);
+
 
 // Defining path
 let pathStr;
@@ -70,7 +69,6 @@ fetch(`https://adventofcode.com/${year}/day/${day}/input`, opts)
         console.log('Success!');
     });
 
-// TODO: further testing
 
 
 function writeFileSyncRecursive(filename, content, charset) {
