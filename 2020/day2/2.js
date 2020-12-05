@@ -40,4 +40,3 @@ function P2() {
 fs.writeFileSync('output.txt', `Part one: ${P1()}`);
 fs.appendFileSync('output.txt', `\nPart two: ${P2()}`);
 
-// TODO: make github testing work
