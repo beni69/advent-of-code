@@ -54,8 +54,8 @@ function P2() {
 
     for (let i = smallest; i < biggest; i++) {
         let found = false;
-        ids.forEach((item, j) => {
-            if (item == i) found = true
+        ids.forEach(item => {
+            if (item == i) found = true;
         });
         if (!found) sol.push(i);
     }
