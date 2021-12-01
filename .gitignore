@@ -103,11 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-#custom
-.jshintrc
 *out*.txt
-config.json
-tests/*
-import/*.txt
 in*.txt
-.vscode

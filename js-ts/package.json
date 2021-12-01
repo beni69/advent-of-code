@@ -1,0 +1,15 @@
+{
+    "name": "js-ts",
+    "version": "2021",
+    "main": "index.js",
+    "author": "beni69 <beni@karesz.xyz> (https://github.com/beni69)",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^16.11.11",
+        "typescript": "^4.5.2",
+        "tsm": "^2.2.1"
+    },
+    "dependencies": {
+        "node-fetch": "^3.1.0"
+    }
+}
