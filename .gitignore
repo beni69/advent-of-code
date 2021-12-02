@@ -103,6 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-*out*.txt
-in*.txt
-ex*.txt
+*.txt
