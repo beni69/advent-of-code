@@ -6,7 +6,7 @@ const input = readFileSync("ex.txt")
     .split("\n")
     .map(x => x.split(""));
 
-const countNums = () => {
+const countNums = (input: string[][]) => {
     let num0 = Array(input[0].length).fill(0) as number[];
     input.forEach(x => x.forEach((y, i) => y === "0" && num0[i]++));
     return num0;
@@ -14,7 +14,7 @@ const countNums = () => {
 
 const part1 = () => {
     let gamma = "";
-    const num0 = countNums();
+    const num0 = countNums(input);
     input[0].forEach((x, i) =>
         num0[i] > input.length / 2 ? (gamma += "0") : (gamma += "1")
     );
@@ -31,16 +31,19 @@ const part1 = () => {
 };
 
 const part2 = () => {
-    const num0 = countNums();
-    // const first = input.map(x => x[0]);
-    const o2Char = num0[0] > input.length / 2 ? "1" : "0";
-    // const one = input.filter(x => x[0] === "1"),
-    //     zero = input.filter(x => x[0] === "0");
-    let nums = input;
-    input[0].forEach(
-        (_, i) => (nums = nums.filter(x => x[0] === `${num0[i]}`))
-    );
-    // TODO: stop when only one number remains
+    const num0 = countNums(input);
+    console.log({ num0 });
+
+    let nums = [...input];
+    for (let i = 0; i < input.length; i++) {
+        console.log({ nums, l: num0[i] > input.length / 2 ? "0" : "1" });
+
+        if (nums.length == 1) break;
+        nums = nums.filter(
+            n => n[i] === `${num0[i] > input.length / 2 ? "0" : "1"}`
+        );
+    }
+    // TODO: count most 0 or 1 from nums instead of input
     console.log(nums);
 };
 
