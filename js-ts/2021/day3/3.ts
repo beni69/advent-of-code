@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 
-const input = readFileSync("ex.txt")
+const input = readFileSync("in.txt")
     .toString()
     .trim()
     .split("\n")
@@ -36,17 +36,27 @@ const part2 = () => {
 
     let nums = [...input];
     for (let i = 0; i < input.length; i++) {
-        console.log({ nums, l: num0[i] > input.length / 2 ? "0" : "1" });
-
         if (nums.length == 1) break;
-        nums = nums.filter(
-            n => n[i] === `${num0[i] > input.length / 2 ? "0" : "1"}`
-        );
+
+        const b = countNums(nums)[i] > nums.length / 2 ? "0" : "1";
+        console.log({ nums, b });
+
+        nums = nums.filter(n => n[i] === b);
     }
-    // TODO: count most 0 or 1 from nums instead of input
-    console.log(nums);
+    const o2 = parseInt(nums[0].join(""), 2);
+    nums = [...input];
+    for (let i = 0; i < input.length; i++) {
+        if (nums.length == 1) break;
+
+        const b = countNums(nums)[i] <= nums.length / 2 ? "0" : "1";
+        console.log({ nums, b });
+
+        nums = nums.filter(n => n[i] === b);
+    }
+    const co2 = parseInt(nums[0].join(""), 2);
+    console.log({ o2, co2 });
+    return o2 * co2;
 };
 
-// console.log(input);
 console.log(part1());
 console.log(part2());
