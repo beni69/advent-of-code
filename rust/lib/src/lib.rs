@@ -1,9 +1,12 @@
-use std::fs::canonicalize;
-use std::path::Path;
+use std::{env::args, fs::canonicalize, path::Path, str::FromStr};
 
 pub fn get_input_string() -> String {
-    let mut p = canonicalize(Path::new(".")).unwrap();
-    p.push("in.txt");
+    let args = args().collect::<Vec<String>>();
+    let p = if args.len() > 1 && Path::new(&args[1]).exists() {
+        canonicalize(&args[1]).expect("Could not find file")
+    } else {
+        canonicalize(Path::new("in.txt")).expect("in.txt not found")
+    };
 
     println!("reading input from {:?}", &p);
 
@@ -30,4 +33,17 @@ pub fn get_input_lines_int() -> Vec<i32> {
         nums.push(line.parse::<i32>().unwrap());
     }
     nums
+}
+
+pub fn get_input_split<T: FromStr>(split: &str) -> Vec<T> {
+    let f = get_input_string();
+    let mut v: Vec<T> = Vec::new();
+    for s in f.split(split) {
+        let res = s.parse::<T>();
+        if res.is_err() {
+            panic!("Failed to parse {}", s);
+        }
+        v.push(res.ok().unwrap());
+    }
+    v
 }

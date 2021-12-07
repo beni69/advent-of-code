@@ -23,12 +23,12 @@ fn transform(nums: Vec<u128>) -> Fish {
 }
 
 fn simulate_day(fish: &mut Fish) {
-    let new=fish[0];
+    let new = fish[0];
     for i in 0..fish.len() - 1 {
         fish[i] = fish[i + 1];
     }
-    fish[8]=new;
-    fish[6]+=new;
+    fish[8] = new;
+    fish[6] += new;
 }
 
 fn count_fish(fish: &Fish) -> u128 {
@@ -43,3 +43,21 @@ fn simulate_n_days(nums: &Fish, n: i32) -> u128 {
     count_fish(&fish)
 }
 
+// shortened version
+fn _main_short() {
+    let in_str = get_input_string();
+    let mut fish: Fish = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for s in in_str.split(",") {
+        fish[s.parse::<usize>().expect("invalid input file")] += 1;
+    }
+    for _ in 0..256 {
+        let new = fish[0];
+        for i in 0..fish.len() - 1 {
+            fish[i] = fish[i + 1];
+        }
+        fish[8] = new;
+        fish[6] += new;
+    }
+    let sum: u128 = fish.iter().sum();
+    println!("{}", sum);
+}
