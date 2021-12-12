@@ -7,7 +7,6 @@ fn main() {
     let mut scores: Vec<u64> = Vec::new();
     for i in 0..input.len() {
         let line = &input[i];
-        // contains the open/close indexes
         let mut stack: Vec<usize> = Vec::new();
         let mut corrupted = false;
         let chars: Vec<char> = line.chars().collect();
@@ -21,7 +20,6 @@ fn main() {
                 }
                 let last = stack.pop().unwrap();
                 let correct = close[last];
-
                 if c != correct {
                     corrupted = true;
                     score_1 += match c {
@@ -34,14 +32,12 @@ fn main() {
                     println!("expected \"{}\" but found \"{}\"", &close[last], &c);
                 }
             }
-            // dbg!(&stack);
         }
         // part 2
         if !(stack.is_empty() || corrupted) {
             println!("incomplete line at {:?}", &i);
             let mut score: u64 = 0;
             for j in (0..stack.len()).rev() {
-                let c = close[stack[j]];
                 score *= 5;
                 score += stack[j] as u64 + 1;
             }
