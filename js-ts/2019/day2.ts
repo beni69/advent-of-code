@@ -1,11 +1,11 @@
-import { SolveFn } from "../lib.ts";
+import { ParseFn, SolveFn } from "../lib.ts";
 
-export const parse: SolveFn = (inp: string) => inp.split(",").map(Number);
+export const parse: ParseFn = (inp: string) => inp.split(",").map(Number);
 
-export const p1 = (inp: number[]) => {
-  const nums = inp;
-  nums[1] = 12;
-  nums[2] = 2;
+export const p1 = (inp: number[], noun = 12, verb = 2) => {
+  const nums = [...inp];
+  nums[1] = noun;
+  nums[2] = verb;
   for (let i = 0; i < nums.length; i += 4) {
     switch (nums[i]) {
       case 99:
@@ -20,4 +20,14 @@ export const p1 = (inp: number[]) => {
         break;
     }
   }
+  return -1;
+};
+
+export const p2: SolveFn<typeof parse> = (nums: number[]) => {
+  const sol = 19690720;
+  for (let noun = 0; noun < 100; noun++)
+    for (let verb = 0; verb < 100; verb++) {
+      if (p1(nums, noun, verb) == sol) return 100 * noun + verb;
+    }
+  return -1;
 };

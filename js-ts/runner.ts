@@ -3,26 +3,42 @@ import { parse as parseArgs } from "https://deno.land/std@0.164.0/flags/mod.ts";
 import { getInput } from "./lib.ts";
 
 const args = parseArgs(Deno.args);
+if (args.h || args.help)
+  void console.log(
+    `
+Usage:
+  -h | --help -> this message
+  -v -> verbose mode
+  -y: year
+  -d: day
+`.trim()
+  ) || Deno.exit(0);
+
 if (!args.y || !args.d) {
-  console.error("-y (year) or -d (day) argument missing");
+  console.error("-y (year) or -d (day) argument missing. run with -h for help");
   Deno.exit(1);
 }
 const file = `./${args.y}/day${args.d}.ts`;
-console.debug(args, file);
+args.v && console.debug(args, file);
 
 let input = args.i ?? (await getInput(args.y, args.d, dotenv().AOC_COOKIE));
 
 const mod = await import(file);
-console.debug(mod);
+args.v && console.debug(mod);
 const fns = ["parse", "p1", "p2"];
 for (const fn of fns) {
   if (!(mod[fn] instanceof Function)) {
-    console.warn("skipping " + fn);
+    args.v && console.warn("skipping " + fn);
     continue;
   }
 
-  console.debug("running " + fn);
+  args.v && console.debug("running " + fn);
+  console.time(fn);
   const res = mod[fn](input);
-  console.log(res);
-  fn === "parse" && (input = res);
+  console.timeEnd(fn);
+
+  if (fn === "parse") {
+    input = res;
+    args.v && console.debug("parse:", res);
+  } else console.log(fn + ":", res);
 }
