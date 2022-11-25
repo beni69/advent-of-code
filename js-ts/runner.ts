@@ -1,5 +1,5 @@
 import { config as dotenv } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
-import { parse as parseArgs } from "https://deno.land/std@0.164.0/flags/mod.ts";
+import { parse as parseArgs } from "https://deno.land/std@0.166.0/flags/mod.ts";
 import { getInput } from "./lib.ts";
 
 const args = parseArgs(Deno.args);
@@ -9,8 +9,10 @@ if (args.h || args.help)
 Usage:
   -h | --help -> this message
   -v -> verbose mode
+  --dl -> only download the input, don't solve
   -y: year
   -d: day
+  -i: custom string to use as input
 `.trim()
   ) || Deno.exit(0);
 
@@ -22,6 +24,8 @@ const file = `./${args.y}/day${args.d}.ts`;
 args.v && console.debug(args, file);
 
 let input = args.i ?? (await getInput(args.y, args.d, dotenv().AOC_COOKIE));
+
+if (args.dl) Deno.exit(0);
 
 const mod = await import(file);
 args.v && console.debug(mod);
