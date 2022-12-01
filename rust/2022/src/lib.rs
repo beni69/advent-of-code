@@ -11,7 +11,6 @@ pub mod input {
             for f in p.read_dir()? {
                 let f = f?;
                 if f.file_name() == "js-ts" {
-                    // js = Some(p.to_owned());
                     js = Some(f.path());
                 }
             }
@@ -36,6 +35,7 @@ pub mod input {
                 "run",
                 "--allow-read",
                 "--allow-write",
+                "--allow-net",
                 "runner.ts",
                 "--dl",
                 "-y",
@@ -45,7 +45,7 @@ pub mod input {
             ])
             .current_dir(path)
             .status()?;
-        println!("import download finished with status {status}");
+        println!("import download finished with {status}");
         Ok(())
     }
 
