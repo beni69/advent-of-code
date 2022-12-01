@@ -4,5 +4,6 @@ stdenv.mkDerivation {
   name = "aoc-hs";
   buildInputs = [
     ghc
+    haskell-language-server
   ];
 }
