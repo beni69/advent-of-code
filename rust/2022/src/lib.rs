@@ -26,7 +26,7 @@ pub mod input {
             _ => get_input_exec(year, day, &dir)?,
         }
 
-        Ok(std::fs::read_to_string(f)?)
+        Ok(std::fs::read_to_string(f)?.trim().to_owned())
     }
 
     fn get_input_exec(year: u32, day: u8, path: &PathBuf) -> Result<()> {
