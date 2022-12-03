@@ -1,10 +1,24 @@
 pub mod input {
-    use std::{error::Error, path::PathBuf, process::Command, str::FromStr};
+    use std::{
+        env::args,
+        error::Error,
+        io::{stdin, Read},
+        path::PathBuf,
+        process::Command,
+        str::FromStr,
+    };
 
     type Date = (u32, u8);
     type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
     pub fn get_input((year, day): Date) -> Result<String> {
+        // Read from stdin
+        if args().len() > 1 && args().skip(1).next().unwrap() == "-" {
+            let mut input = String::new();
+            stdin().read_to_string(&mut input)?;
+            return Ok(input.trim().to_string());
+        }
+
         let cwd = std::env::current_dir()?;
         let mut js: Option<PathBuf> = None;
         for p in cwd.ancestors() {
