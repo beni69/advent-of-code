@@ -1,4 +1,5 @@
 use lib::{input::get_input_lines, year_day, Result};
+use std::collections::VecDeque;
 
 fn main() -> Result<()> {
     let input = get_input_lines(year_day!())?;
@@ -15,9 +16,8 @@ fn main() -> Result<()> {
         .parse::<usize>()?;
     println!("size: {size}");
 
-    let start = input.iter().take(size_i);
     let mut stacks: Vec<Vec<char>> = vec![Vec::new(); size];
-    for line in start {
+    for line in input.iter().take(size_i).rev() {
         let mut chars = line.chars();
         for i in 0..size {
             let item = [
@@ -31,7 +31,6 @@ fn main() -> Result<()> {
             }
         }
     }
-    dbg!(&stacks);
 
     let instructions = input.iter().skip(size_i + 2).map(|l| {
         l.split_ascii_whitespace()
@@ -40,15 +39,30 @@ fn main() -> Result<()> {
             .map(|x| x.parse::<usize>().unwrap())
             .collect::<Vec<_>>()
     });
-    // println!("{:?}", instructions.collect::<Vec<_>>());
-    // !FIXME
-    for step in instructions {
+    let mut stacks2 = stacks.clone();
+    for step in instructions.clone() {
         for _ in 0..step[0] {
             let item = stacks[step[1] - 1].pop().unwrap();
             stacks[step[2] - 1].push(item);
         }
     }
-    dbg!(&stacks);
+
+    // part 2
+    for step in instructions {
+        let mut res = VecDeque::new();
+        for _ in 0..step[0] {
+            let item = stacks2[step[1] - 1].pop().unwrap();
+            res.push_front(item);
+        }
+        stacks2[step[2] - 1].append(&mut res.make_contiguous().to_vec());
+    }
+
+    let res = stacks.iter().map(|s| s.last().unwrap()).collect::<String>();
+    let res2 = stacks2
+        .iter()
+        .map(|s| s.last().unwrap())
+        .collect::<String>();
+    println!("part 1: {res}\npart 2: {res2}");
 
     Ok(())
 }
