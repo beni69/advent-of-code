@@ -1,7 +1,9 @@
+use std::error::Error;
+
 pub mod input {
+    use super::Result;
     use std::{
         env::args,
-        error::Error,
         io::{stdin, Read},
         path::PathBuf,
         process::Command,
@@ -9,14 +11,13 @@ pub mod input {
     };
 
     type Date = (u32, u8);
-    type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
     pub fn get_input((year, day): Date) -> Result<String> {
         // Read from stdin
         if args().len() > 1 && args().skip(1).next().unwrap() == "-" {
             let mut input = String::new();
             stdin().read_to_string(&mut input)?;
-            return Ok(input.trim().to_string());
+            return Ok(input.to_string());
         }
 
         let cwd = std::env::current_dir()?;
@@ -40,7 +41,7 @@ pub mod input {
             _ => get_input_exec(year, day, &dir)?,
         }
 
-        Ok(std::fs::read_to_string(f)?.trim().to_owned())
+        Ok(std::fs::read_to_string(f)?.to_owned())
     }
 
     fn get_input_exec(year: u32, day: u8, path: &PathBuf) -> Result<()> {
@@ -64,11 +65,7 @@ pub mod input {
     }
 
     pub fn get_input_lines(date: Date) -> Result<Vec<String>> {
-        Ok(get_input(date)?
-            .trim()
-            .split("\n")
-            .map(String::from)
-            .collect())
+        Ok(get_input(date)?.lines().map(String::from).collect())
     }
     pub fn get_input_parse<T: FromStr>(date: Date) -> Result<Vec<T>> {
         get_input(date)?
@@ -93,3 +90,5 @@ macro_rules! year_day {
         )
     };
 }
+
+pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
