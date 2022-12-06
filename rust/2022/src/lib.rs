@@ -60,7 +60,7 @@ pub mod input {
             ])
             .current_dir(path)
             .status()?;
-        println!("import download finished with {status}");
+        eprintln!("input download finished with {status}");
         Ok(())
     }
 
