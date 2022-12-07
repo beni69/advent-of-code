@@ -4,7 +4,7 @@ use std::{cmp::Ordering, error::Error, str::FromStr};
 fn main() -> Result<(), Box<dyn Error>> {
     let inp = get_input(year_day!())?;
     let inp: Vec<Vec<_>> = inp
-        .split("\n")
+        .lines()
         .map(|l| l.split_whitespace().collect())
         .collect();
 
