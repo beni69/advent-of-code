@@ -14,7 +14,7 @@ pub mod input {
 
     pub fn get_input((year, day): Date) -> Result<String> {
         // Read from stdin
-        if args().len() > 1 && args().skip(1).next().unwrap() == "-" {
+        if args().len() > 1 && args().nth(1).unwrap() == "-" {
             let mut input = String::new();
             stdin().read_to_string(&mut input)?;
             return Ok(input.to_string());
@@ -41,7 +41,7 @@ pub mod input {
             _ => get_input_exec(year, day, &dir)?,
         }
 
-        Ok(std::fs::read_to_string(f)?.to_owned())
+        Ok(std::fs::read_to_string(f)?)
     }
 
     fn get_input_exec(year: u32, day: u8, path: &PathBuf) -> Result<()> {
@@ -69,8 +69,7 @@ pub mod input {
     }
     pub fn get_input_parse<T: FromStr>(date: Date) -> Result<Vec<T>> {
         get_input(date)?
-            .trim()
-            .split("\n")
+            .lines()
             .map(|x| match x.parse() {
                 Ok(x) => Ok(x),
                 Err(_) => Err(format!("{x:?}: parse failed").into()),
@@ -89,6 +88,38 @@ macro_rules! year_day {
                 .expect("day number parse failed"),
         )
     };
+}
+
+#[macro_export]
+macro_rules! main {
+    {$($tt:tt)*} => {
+        fn main() -> Result<()> {
+            $($tt)*;
+            Ok(())
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! dprintln {
+    ($($tt:tt)*) => {{
+        #[cfg(debug_assertions)]
+        eprintln!($($tt)*);
+    }};
+}
+#[macro_export]
+macro_rules! dprint {
+    ($($tt:tt)*) => {{
+        #[cfg(debug_assertions)]
+        eprint!($($tt)*);
+    }};
+}
+#[macro_export]
+macro_rules! ddbg {
+    ($($tt:tt)*) => {{
+        #[cfg(debug_assertions)]
+        dbg!($($tt)*);
+    }};
 }
 
 pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
