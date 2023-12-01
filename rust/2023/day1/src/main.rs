@@ -1,4 +1,4 @@
-use std::error::Error;
+use lib::{input::get_input, year_day, Result};
 const DIGITS: [&str; 9] = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 ];
@@ -17,12 +17,11 @@ fn check(line: &str, i: usize) -> Option<u32> {
     }
     None
 }
-fn main() -> Result<(), Box<dyn Error>> {
-    let file = std::fs::read_to_string("./in")?;
-    let inp = file.trim().split("\n");
+fn main() -> Result<()> {
+    let inp = get_input(year_day!())?;
 
     let mut sol = 0u32;
-    for line in inp {
+    for line in inp.trim().split("\n") {
         let mut i = 0;
         let mut c1: Option<u32> = None;
         while i < line.len() && c1.is_none() {
